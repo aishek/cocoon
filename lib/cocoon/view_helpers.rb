@@ -92,7 +92,8 @@ module Cocoon
         new_object = create_object(f, association, force_non_association_create)
         new_object = wrap_object.call(new_object) if wrap_object.respond_to?(:call)
 
-        html_options[:'data-association-insertion-template'] = CGI.escapeHTML(render_association(association, f, new_object, form_parameter_name, render_options, override_partial).to_str).html_safe
+        template = URI.escape(render_association(association, f, new_object, form_parameter_name, render_options, override_partial).to_str).html_safe
+        html_options[:'data-association-insertion-template'] = template
 
         html_options[:'data-count'] = count if count > 0
 
